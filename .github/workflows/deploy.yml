@@ -44,12 +44,23 @@ jobs:
         # 명령어가 여러개라면 | 추가
         # 1. 빌드용 쉘스크립트(gradlew)를 퍼시면 조정
         # 2. 빌드
-        # 3. 현재 위치 확인 테스트
+        # 3. 현재 위치 확인 테스트 /home/runner/work/demo-deploy/demo-deploy
         # 4. 현재 위치 목폭 확인
+          # build  build.gradle  gradle  gradlew  gradlew.bat  settings.gradle  src
         # 5. 빌드된 산출물의 목록 확인
+          # demo-deploy-0.0.1-SNAPSHOT-plain.jar
+          # demo-deploy-0.0.1-SNAPSHOT.jar
+
         run: |
           chmod +x ./gradlew
           ./gradlew clean build
           pwd
           ls
           ls ./build/libs/
+
+      # 이름이 너무 기므로 jar파일명 적당하게 수정 -> linux 명령어
+      # 파일 위치를 변경하면서 이름도 변경 -> mv
+      - name: 관리상 빌드된 결과물의 이름을 변경 처리
+        run: |
+          mv ./build/libs/*SNAPSHOT.jar ./run.jar
+          ls
